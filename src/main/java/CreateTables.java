@@ -12,7 +12,7 @@ public class CreateTables {
 	public static void creatingArticalsTable() {
 
 		String sql = "CREATE TABLE Articals (id INTEGER PRIMARY KEY IDENTITY(1,1)," + "title VARCHAR(255) NOT NULL,"
-				+"source VARCHAR(255) NOT NULL," + "published_date VARCHAR(255) NOT NULL)";
+				+ "source VARCHAR(255) NOT NULL," + "published_date VARCHAR(255) NOT NULL)";
 
 		Connection con = null;
 
@@ -44,7 +44,7 @@ public class CreateTables {
 
 		String sql = "CREATE TABLE Authors(id INTEGER PRIMARY KEY IDENTITY(1,1)," + "author VARCHAR(255) NOT NULL,"
 				+ "contributor VARCHAR(255) NOT NULL," + "description VARCHAR(255) NOT NULL,"
-				 + "title  VARCHAR(255) NOT NULL)";
+				+ "title  VARCHAR(255) NOT NULL)";
 
 		Connection con = null;
 
