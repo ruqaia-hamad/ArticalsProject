@@ -1,4 +1,6 @@
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Scanner;
 
 public class Main {
@@ -123,7 +125,12 @@ public class Main {
 
 				break;
 			case 4:
-				SqlQuries.addingId();
+		
+				BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+				System.out.print("Enter the author name: ");
+				String author = br.readLine();
+				SqlQuries.addingId(author);
+
 				break;
 			case 5:
 				System.out.println("THANK YOU");

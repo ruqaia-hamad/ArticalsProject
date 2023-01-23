@@ -12,15 +12,16 @@ public class SqlQuries {
 	static String user = "sa";
 	static String pass = "root";
 
-	public static void addingId() throws Throwable {
+	public static void addingId(String author) throws Throwable {
 
 		Scanner sc = new Scanner(System.in);
 		System.out.print("Enter the title of Artical ");
 		String title = sc.next();
 		System.out.print("Enter the source of Artical ");
 		String source = sc.next();
-		String sql ="select id  from Authors where author = 'John Grisham'";
-		String sql2="select id from Sections where section_name='U.S.' And document_type='article'";
+
+		String sql = "select id  from Authors where author = ?";
+		String sql2 = "select id from Sections where section_name='U.S.' And document_type='article'";
 
 		Connection con = null;
 
@@ -33,38 +34,49 @@ public class SqlQuries {
 			con = DriverManager.getConnection(url, user, pass);
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			PreparedStatement pstmt2 = con.prepareStatement(sql2);
+			pstmt.setString(1, author);
 //			pstmt.executeUpdate();
 
-	
 			try {
-			ResultSet rs = pstmt.executeQuery();
-			ResultSet rs2 = pstmt2.executeQuery();
-			if (rs.next() && rs2.next() ) {
-				   int authorId = rs.getInt("id");
-				   int sectionId = rs2.getInt("id");
-	                sql = "INSERT INTO Articals (title ,source,published_date,Author_id , Section_id) VALUES (?,?,?,?,?)";
+				int authorId = 0;
+				int sectionId = 0;
+
+				ResultSet rs = pstmt.executeQuery();
+				ResultSet rs2 = pstmt2.executeQuery();
+				if (rs.next()) {
+					authorId = rs.getInt("id");
+
+				}
+				if (rs2.next()) {
+					sectionId = rs2.getInt("id");
+
+				}
+				if (authorId != 0 && sectionId != 0) {
+
+					sql = "INSERT INTO Articals (title ,source,published_date,Author_id , Section_id) VALUES (?,?,?,?,?)";
 					try {
 						PreparedStatement pstmt3 = con.prepareStatement(sql);
-						 pstmt3.setString(1, title);
-						 pstmt3.setString(2, source);
-						 pstmt3.setDate(3, new Date(System.currentTimeMillis()));
-						 pstmt3.setInt(4, authorId);
-						 pstmt3.setInt(5, sectionId);
-						 pstmt3.executeUpdate();
-					}catch (SQLException e) {
+						pstmt3.setString(1, title);
+						pstmt3.setString(2, source);
+						pstmt3.setDate(3, new Date(System.currentTimeMillis()));
+						pstmt3.setInt(4, authorId);
+						pstmt3.setInt(5, sectionId);
+						pstmt3.executeUpdate();
+						System.out.println("added successfully");
+					} catch (SQLException e) {
 						System.out.println(e);
 
+					}
+				}
+			} catch (SQLException e) {
+				System.out.println(e);
 			}
-		} }catch (SQLException e) {
+
+		} catch (
+
+		SQLException e) {
 			System.out.println(e);
 		}
-			
-		}catch (SQLException e) {
-			System.out.println(e);
-		}
-			
-		}
+
 	}
-
-	
-
+}
