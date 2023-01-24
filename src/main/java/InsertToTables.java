@@ -100,7 +100,7 @@ public class InsertToTables {
 					stmt.setString(3, title);
 					stmt.setString(4, description);
 
-					int rowsInserted = stmt.executeUpdate();
+					stmt.executeUpdate();
 					System.out.println(" rows inserted.");
 				} catch (SQLException e) {
 					e.printStackTrace();
